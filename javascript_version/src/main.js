@@ -1,3 +1,6 @@
+import * as seedrandom from "seedrandom";
+var rng = Math.seedrandom('hello.');
+
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
 const width = canvas.width = 640;
@@ -26,12 +29,24 @@ generate_button.addEventListener('click', generateGrid);
 const grid = [];
 
 function generateGrid() {
+
     for (let y = 0; y < rows; y++) {
         grid[y] = [];
         for (let x = 0; x < cols; x++) {
-            grid[y][x] = Math.random() < density ? 1 : 0;
+            if (y == 0 || x == 0 || y == (rows - 1) || x == (cols - 1)) {
+                grid[y][x] = 1;
+            }
+            else {
+                grid[y][x] = rng() < density ? 1 : 0;
+            }
         }
     }
+    // for (let y = 0; y < rows; y++) {
+    //     grid[y] = [];
+    //     for (let x = 0; x < cols; x++) {
+    //         grid[y][x] = Math.random() < density ? 1 : 0;
+    //     }
+    // }
     drawGrid();
 }
 
@@ -40,8 +55,8 @@ generateGrid();
 function drawGrid() {
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-           context.fillStyle = grid[y][x] ? "#000" : "#FFF";
-           context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+            context.fillStyle = grid[y][x] ? "#000" : "#FFF";
+            context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
     }
 }
