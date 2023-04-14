@@ -1,19 +1,20 @@
-import * as seedrandom from "seedrandom";
-var rng = Math.seedrandom('hello.');
+'use strict'
+var seedrandom = require('seedrandom');
+var rng = seedrandom('asdf');
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
 const width = canvas.width = 640;
 const height = canvas.height = width / (16 / 9);
-const cellSize = 8
+const cellSize = 8;
 const cols = Math.floor(width / cellSize);
 const rows = Math.floor(height / cellSize);
 
 let density = 0.6;
 const density_input = document.querySelector('#density input');
-const density_label = document.querySelector('#density span')
+const density_label = document.querySelector('#density span');
 density_input.value = density;
-decimalToPercent = (decimal) => (decimal * 100) + "%"
+let decimalToPercent = (decimal) => (decimal * 100) + "%";
 density_label.innerText = decimalToPercent(density);
 
 const generate_button = document.querySelector('#generate');
@@ -29,6 +30,7 @@ generate_button.addEventListener('click', generateGrid);
 const grid = [];
 
 function generateGrid() {
+    let rng = new seedrandom('asdf');
 
     for (let y = 0; y < rows; y++) {
         grid[y] = [];
@@ -41,12 +43,7 @@ function generateGrid() {
             }
         }
     }
-    // for (let y = 0; y < rows; y++) {
-    //     grid[y] = [];
-    //     for (let x = 0; x < cols; x++) {
-    //         grid[y][x] = Math.random() < density ? 1 : 0;
-    //     }
-    // }
+
     drawGrid();
 }
 
