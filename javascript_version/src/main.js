@@ -45,7 +45,6 @@ function generateGrid() {
 }
 
 function generateCellularAutomata(noise) {
-    // let ca = Array(rows).fill().map(() => Array(cols));
     let ca = Array(cols).fill().map(() => Array(rows));
     let current_noise = noise.map(a => a);
 
