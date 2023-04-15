@@ -961,8 +961,8 @@ let seed = "asdf";
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
-const width = canvas.width = 640;
-const height = canvas.height = width / (16 / 9);
+const width = canvas.width = 512;
+const height = canvas.height = 512;
 const cellSize = 4;
 const cols = Math.floor(width / cellSize);
 const rows = Math.floor(height / cellSize);
@@ -977,15 +977,11 @@ density_input.value = density;
 let decimalToPercent = (decimal) => Math.floor(decimal * 100) + "%";
 density_label.innerText = decimalToPercent(density);
 
-const generate_button = document.querySelector('#generate');
-
 density_input.addEventListener('input', () => {
     density = density_input.value;
     density_label.innerText = decimalToPercent(density);
     generateGrid();
 });
-
-generate_button.addEventListener('click', generateGrid);
 
 seed_input.addEventListener('input', () => {
     seed = seed_input.value;
@@ -995,39 +991,37 @@ seed_input.addEventListener('input', () => {
 let grid = [];
 
 function generateGrid() {
+    grid = generateNoise(seed);
 
-    grid = generateCellularAutomata(generateNoise(seed)).map(a => a);
+    for (let z = 1; z < 6; z++) {
+        grid = generateCellularAutomata(grid);
+    }
 
     drawGrid();
 }
 
 function generateCellularAutomata(noise) {
-    // let ca = Array(rows).fill().map(() => Array(cols));
     let ca = Array(cols).fill().map(() => Array(rows));
     let current_noise = noise.map(a => a);
 
-    for (let z = 1; z < 4; z++) {
-        for (let y = 1; y < rows - 1; y++) {
-            for (let x = 1; x < cols - 1; x++) {
-                let neighbors = [
-                    current_noise[y + 1][x - 1],
-                    current_noise[y + 1][x],
-                    current_noise[y + 1][x + 1],
-                    current_noise[y][x - 1],
-                    current_noise[y][x + 1],
-                    current_noise[y - 1][x - 1],
-                    current_noise[y - 1][x],
-                    current_noise[y - 1][x + 1],
-                ];
+    for (let y = 1; y < rows - 1; y++) {
+        for (let x = 1; x < cols - 1; x++) {
+            let neighbors = [
+                current_noise[y + 1][x - 1],
+                current_noise[y + 1][x],
+                current_noise[y + 1][x + 1],
+                current_noise[y][x - 1],
+                current_noise[y][x + 1],
+                current_noise[y - 1][x - 1],
+                current_noise[y - 1][x],
+                current_noise[y - 1][x + 1],
+            ];
 
-                if (neighbors.filter(a => a === 1).length > 3)
-                    ca[y][x] = 1;
-                else
-                    ca[y][x] = 0;
-            }
+            if (neighbors.filter(a => a === 1).length > 3)
+                ca[y][x] = 1;
+            else
+                ca[y][x] = 0;
         }
-
-        current_noise = ca.map(a => a);
     }
 
     return ca;
@@ -1057,7 +1051,7 @@ generateGrid();
 function drawGrid() {
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-            context.fillStyle = grid[y][x] ? "#FFF" : "#000";
+            context.fillStyle = grid[y][x] ? "#FFF" : "#224765";
             context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
     }
