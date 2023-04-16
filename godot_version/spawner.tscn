@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpjlhr11k8go5"]
+
+[ext_resource type="Script" path="res://spawner.gd" id="1_c35ha"]
+[ext_resource type="PackedScene" uid="uid://bua2g2b08glvv" path="res://tile.tscn" id="2_4wx8v"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_c35ha")
+tile_scene = ExtResource("2_4wx8v")
