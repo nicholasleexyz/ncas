@@ -104,3 +104,12 @@ function drawGrid() {
         }
     }
 }
+
+const download_button = document.querySelector('#download');
+download_button.addEventListener('click', (e) => {
+    const link = document.createElement('a');
+    link.download = `${seed_input.value}.png`;
+    link.href = canvas.toDataURL();
+    link.click();
+    link.delete;
+});
