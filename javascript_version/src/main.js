@@ -47,23 +47,28 @@ function generateCellularAutomata(noise) {
     let ca = Array(cols).fill().map(() => Array(rows));
     let current_noise = noise.map(a => a);
 
-    for (let y = 1; y < rows - 1; y++) {
-        for (let x = 1; x < cols - 1; x++) {
-            let neighbors = [
-                current_noise[y + 1][x - 1],
-                current_noise[y + 1][x],
-                current_noise[y + 1][x + 1],
-                current_noise[y][x - 1],
-                current_noise[y][x + 1],
-                current_noise[y - 1][x - 1],
-                current_noise[y - 1][x],
-                current_noise[y - 1][x + 1],
-            ];
+    for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+            if(y > 0 && y < rows - 1 && x > 0 && x < cols - 1){
+                let neighbors = [
+                    current_noise[y + 1][x - 1],
+                    current_noise[y + 1][x],
+                    current_noise[y + 1][x + 1],
+                    current_noise[y][x - 1],
+                    current_noise[y][x + 1],
+                    current_noise[y - 1][x - 1],
+                    current_noise[y - 1][x],
+                    current_noise[y - 1][x + 1],
+                ];
 
-            if (neighbors.filter(a => a === 1).length > 3)
+                if (neighbors.filter(a => a === 1).length > 3)
+                    ca[y][x] = 1;
+                else
+                    ca[y][x] = 0;
+            }
+            else{
                 ca[y][x] = 1;
-            else
-                ca[y][x] = 0;
+            }
         }
     }
 
@@ -94,7 +99,7 @@ generateGrid();
 function drawGrid() {
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-            context.fillStyle = grid[y][x] ? "#FFF" : "#224765";
+            context.fillStyle = grid[y][x] ? "#224765" : "#FFF" ;
             context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
     }
