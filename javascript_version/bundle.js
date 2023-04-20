@@ -1,6 +1,4 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-
-},{}],2:[function(require,module,exports){
 // A library of seedable RNGs implemented in Javascript.
 //
 // Usage:
@@ -62,7 +60,7 @@ sr.tychei = tychei;
 
 module.exports = sr;
 
-},{"./lib/alea":3,"./lib/tychei":4,"./lib/xor128":5,"./lib/xor4096":6,"./lib/xorshift7":7,"./lib/xorwow":8,"./seedrandom":9}],3:[function(require,module,exports){
+},{"./lib/alea":2,"./lib/tychei":3,"./lib/xor128":4,"./lib/xor4096":5,"./lib/xorshift7":6,"./lib/xorwow":7,"./seedrandom":8}],2:[function(require,module,exports){
 // A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
 // http://baagoe.com/en/RandomMusings/javascript/
 // https://github.com/nquinlan/better-random-numbers-for-javascript-mirror
@@ -178,7 +176,7 @@ if (module && module.exports) {
 
 
 
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 // A Javascript implementaion of the "Tyche-i" prng algorithm by
 // Samuel Neves and Filipe Araujo.
 // See https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
@@ -283,7 +281,7 @@ if (module && module.exports) {
 
 
 
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 // A Javascript implementaion of the "xor128" prng algorithm by
 // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
 
@@ -366,7 +364,7 @@ if (module && module.exports) {
 
 
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 // A Javascript implementaion of Richard Brent's Xorgens xor4096 algorithm.
 //
 // This fast non-cryptographic random number generator is designed for
@@ -514,7 +512,7 @@ if (module && module.exports) {
   (typeof define) == 'function' && define   // present with an AMD loader
 );
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 // A Javascript implementaion of the "xorshift7" algorithm by
 // François Panneton and Pierre L'ecuyer:
 // "On the Xorgshift Random Number Generators"
@@ -613,7 +611,7 @@ if (module && module.exports) {
 );
 
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 // A Javascript implementaion of the "xorwow" prng algorithm by
 // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
 
@@ -701,7 +699,7 @@ if (module && module.exports) {
 
 
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /*
 Copyright 2019 David Bau.
 
@@ -956,13 +954,14 @@ if ((typeof module) == 'object' && module.exports) {
   Math    // math: package containing random, pow, and seedrandom
 );
 
-},{"crypto":1}],10:[function(require,module,exports){
+},{"crypto":10}],9:[function(require,module,exports){
 /*
     remove small bits
     wandering drunkard option
     add in a 3d preview of the map?
     theme selection?
     settings bar?
+    paint fill algorithm to remove little bits
 */
 
 'use strict'
@@ -984,7 +983,8 @@ const density_label = document.querySelector('#density span');
 const seed_input = document.querySelector('#seed input');
 
 density_input.value = density;
-let decimalToPercent = (decimal) => Math.floor(decimal * 100) + "%";
+let decimalToPercent = (decimal) =>
+    Math.floor(decimal * 100) + "%";
 density_label.innerText = decimalToPercent(density);
 
 density_input.addEventListener('input', () => {
@@ -1010,6 +1010,7 @@ function generateGrid() {
     }
 
     grid = generateWanderingDrunkardNoise(seed, 10);
+    // RemoveSpecksInArray(grid, 1, 1);
 
     drawGrid();
 }
@@ -1020,7 +1021,7 @@ function generateCellularAutomata(noise) {
 
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-            if(y > 0 && y < rows - 1 && x > 0 && x < cols - 1){
+            if (y > 0 && y < rows - 1 && x > 0 && x < cols - 1) {
                 let neighbors = [
                     current_noise[y + 1][x - 1],
                     current_noise[y + 1][x],
@@ -1037,7 +1038,7 @@ function generateCellularAutomata(noise) {
                 else
                     ca[y][x] = 0;
             }
-            else{
+            else {
                 ca[y][x] = 1;
             }
         }
@@ -1077,7 +1078,6 @@ function generateWanderingDrunkardNoise(seed, numOfDrunkards) {
         }
     }
 
-    // console.log(`Coord: ${xCoord}, ${yCoord}`)
     let xCoord = Math.round(rng() * cols) % cols;
     let yCoord = Math.round(rng() * rows) % rows;
 
@@ -1089,13 +1089,13 @@ function generateWanderingDrunkardNoise(seed, numOfDrunkards) {
             let dir = Math.round(rng() * 4) % 4;
 
             for (let z = 0; z < 1; z++) {
-                if(dir == 0)
+                if (dir == 0)
                     noise[yCoord > rows - 2 ? yCoord : ++yCoord][xCoord] = 1;
-                else if(dir == 1)
+                else if (dir == 1)
                     noise[yCoord][xCoord > rows - 2 ? xCoord : ++xCoord] = 1;
-                else if(dir == 2)
+                else if (dir == 2)
                     noise[yCoord == 0 ? yCoord : --yCoord][xCoord] = 1;
-                else if(dir == 3)
+                else if (dir == 3)
                     noise[yCoord][xCoord == 0 ? xCoord : --xCoord] = 1;
             }
         }
@@ -1106,16 +1106,53 @@ function generateWanderingDrunkardNoise(seed, numOfDrunkards) {
 
 generateGrid();
 
+// //OOF!!!
+// function RemoveSpecksInArray(array, coordX, coordY, total) {
+//     if (coordX < 1 || coordX > cols - 2 || coordY < 1 || coordY < rows - 2)
+//         return;
+
+//     let current = array[coordY][coordX];
+
+//     if (total === undefined)
+//         total = [];
+//     if (total.length > 3)
+//         return;
+//     if (array[coordY][coordX - 1] === current) {
+//         RemoveSpecksInArray(array, coordX - 1, coordY, total.concat([coordX, coordY]));
+//         matched = true;
+//     }
+//     if (array[coordY][coordX + 1] === current) {
+//         RemoveSpecksInArray(array, coordX + 1, coordY, total.concat([coordX, coordY]));
+//         matched = true;
+//     }
+//     if (array[coordY - 1][coordX] === current) {
+//         RemoveSpecksInArray(array, coordX, coordY - 1, total.concat([coordX, coordY]));
+//         matched = true;
+//     }
+//     if (array[coordY + 1][coordX] === current) {
+//         RemoveSpecksInArray(array, coordX, coordY + 1, total.concat([coordX, coordY]));
+//         matched = true;
+//     }
+
+//     if (matched === false && total.length > 0) {
+//         // let val = array[total[0][0], total[0][1]] === 0 ? 1 : 0;
+
+//         for (let i = 0; i < total.length; i++)
+//             array[total[i][0], total[i][1]] = 2;
+//     }
+// }
+
 function drawGrid() {
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-            context.fillStyle = grid[y][x] ? "#224765" : "#FFF" ;
+            context.fillStyle = grid[y][x] ? "#222E44" : "#3497A1";
             context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
     }
 }
 
 const download_button = document.querySelector('#download');
+
 download_button.addEventListener('click', (e) => {
     const link = document.createElement('a');
     link.download = `${seed_input.value}.png`;
@@ -1123,4 +1160,6 @@ download_button.addEventListener('click', (e) => {
     link.click();
     link.delete;
 });
-},{"seedrandom":2}]},{},[10]);
+},{"seedrandom":1}],10:[function(require,module,exports){
+
+},{}]},{},[9]);

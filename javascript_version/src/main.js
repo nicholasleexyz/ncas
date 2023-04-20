@@ -4,6 +4,7 @@
     add in a 3d preview of the map?
     theme selection?
     settings bar?
+    paint fill algorithm to remove little bits
 */
 
 'use strict'
@@ -25,7 +26,8 @@ const density_label = document.querySelector('#density span');
 const seed_input = document.querySelector('#seed input');
 
 density_input.value = density;
-let decimalToPercent = (decimal) => Math.floor(decimal * 100) + "%";
+let decimalToPercent = (decimal) =>
+    Math.floor(decimal * 100) + "%";
 density_label.innerText = decimalToPercent(density);
 
 density_input.addEventListener('input', () => {
@@ -51,6 +53,7 @@ function generateGrid() {
     }
 
     grid = generateWanderingDrunkardNoise(seed, 10);
+    // RemoveSpecksInArray(grid, 1, 1);
 
     drawGrid();
 }
@@ -61,7 +64,7 @@ function generateCellularAutomata(noise) {
 
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-            if(y > 0 && y < rows - 1 && x > 0 && x < cols - 1){
+            if (y > 0 && y < rows - 1 && x > 0 && x < cols - 1) {
                 let neighbors = [
                     current_noise[y + 1][x - 1],
                     current_noise[y + 1][x],
@@ -78,7 +81,7 @@ function generateCellularAutomata(noise) {
                 else
                     ca[y][x] = 0;
             }
-            else{
+            else {
                 ca[y][x] = 1;
             }
         }
@@ -129,13 +132,13 @@ function generateWanderingDrunkardNoise(seed, numOfDrunkards) {
             let dir = Math.round(rng() * 4) % 4;
 
             for (let z = 0; z < 1; z++) {
-                if(dir == 0)
+                if (dir == 0)
                     noise[yCoord > rows - 2 ? yCoord : ++yCoord][xCoord] = 1;
-                else if(dir == 1)
+                else if (dir == 1)
                     noise[yCoord][xCoord > rows - 2 ? xCoord : ++xCoord] = 1;
-                else if(dir == 2)
+                else if (dir == 2)
                     noise[yCoord == 0 ? yCoord : --yCoord][xCoord] = 1;
-                else if(dir == 3)
+                else if (dir == 3)
                     noise[yCoord][xCoord == 0 ? xCoord : --xCoord] = 1;
             }
         }
@@ -146,16 +149,53 @@ function generateWanderingDrunkardNoise(seed, numOfDrunkards) {
 
 generateGrid();
 
+// //OOF!!!
+// function RemoveSpecksInArray(array, coordX, coordY, total) {
+//     if (coordX < 1 || coordX > cols - 2 || coordY < 1 || coordY < rows - 2)
+//         return;
+
+//     let current = array[coordY][coordX];
+
+//     if (total === undefined)
+//         total = [];
+//     if (total.length > 3)
+//         return;
+//     if (array[coordY][coordX - 1] === current) {
+//         RemoveSpecksInArray(array, coordX - 1, coordY, total.concat([coordX, coordY]));
+//         matched = true;
+//     }
+//     if (array[coordY][coordX + 1] === current) {
+//         RemoveSpecksInArray(array, coordX + 1, coordY, total.concat([coordX, coordY]));
+//         matched = true;
+//     }
+//     if (array[coordY - 1][coordX] === current) {
+//         RemoveSpecksInArray(array, coordX, coordY - 1, total.concat([coordX, coordY]));
+//         matched = true;
+//     }
+//     if (array[coordY + 1][coordX] === current) {
+//         RemoveSpecksInArray(array, coordX, coordY + 1, total.concat([coordX, coordY]));
+//         matched = true;
+//     }
+
+//     if (matched === false && total.length > 0) {
+//         // let val = array[total[0][0], total[0][1]] === 0 ? 1 : 0;
+
+//         for (let i = 0; i < total.length; i++)
+//             array[total[i][0], total[i][1]] = 2;
+//     }
+// }
+
 function drawGrid() {
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-            context.fillStyle = grid[y][x] ? "#224765" : "#FFF" ;
+            context.fillStyle = grid[y][x] ? "#222E44" : "#3497A1";
             context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
     }
 }
 
 const download_button = document.querySelector('#download');
+
 download_button.addEventListener('click', (e) => {
     const link = document.createElement('a');
     link.download = `${seed_input.value}.png`;

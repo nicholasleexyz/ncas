@@ -12,7 +12,9 @@ main {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #269FD4;
+    /* background: radial-gradient(#9FB0A3, #DD9880); */
+    background: radial-gradient(#DD9880,#9FB0A3);
+    /* background: radial-gradient(#DF9881, #9FB0A3); */
 }
 
 canvas {
