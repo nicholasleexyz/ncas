@@ -1,3 +1,11 @@
+/*
+    remove small bits
+    wandering drunkard option
+    add in a 3d preview of the map?
+    theme selection?
+    settings bar?
+*/
+
 'use strict'
 var seedrandom = require('seedrandom');
 let seed = "asdf";
@@ -34,7 +42,7 @@ seed_input.addEventListener('input', () => {
 let grid = [];
 
 function generateGrid() {
-    grid = generateNoise(seed);
+    grid = generateWanderingDrunkardNoise(seed, 10);
 
     for (let z = 1; z < 6; z++) {
         grid = generateCellularAutomata(grid);
@@ -44,7 +52,7 @@ function generateGrid() {
 }
 
 function generateCellularAutomata(noise) {
-    let ca = Array(cols).fill().map(() => Array(rows));
+    let ca = new Array(cols).fill().map(() => new Array(rows));
     let current_noise = noise.map(a => a);
 
     for (let y = 0; y < rows; y++) {
@@ -91,6 +99,46 @@ function generateNoise(seed) {
             }
         }
     }
+    return noise;
+}
+
+function generateWanderingDrunkardNoise(seed, numOfDrunkards) {
+    console.log("asdf");
+    let rng = new seedrandom(seed);
+
+    let noise = [];
+
+    for (let y = 0; y < rows; y++) {
+        noise[y] = [];
+        for (let x = 0; x < cols; x++) {
+            noise[y][x] = 0;
+        }
+    }
+
+    // console.log(`Coord: ${xCoord}, ${yCoord}`)
+
+    for (let i = 0; i < numOfDrunkards; i++) {
+        let xCoord = Math.round(rng() * cols) % cols;
+        let yCoord = Math.round(rng() * rows) % rows;
+        let steps = 1024;
+        noise[yCoord][xCoord] = 1;
+
+        for (let j = 0; j < steps; j++) {
+            let dir = Math.round(rng() * 4) % 4;
+
+            for (let z = 0; z < 2; z++) {
+                if(dir == 0)
+                    noise[yCoord > rows - 2 ? yCoord : ++yCoord][xCoord] = 1;
+                else if(dir == 1)
+                    noise[yCoord][xCoord > rows - 2 ? xCoord : ++xCoord] = 1;
+                else if(dir == 2)
+                    noise[yCoord == 0 ? yCoord : --yCoord][xCoord] = 1;
+                else if(dir == 3)
+                    noise[yCoord][xCoord == 0 ? xCoord : --xCoord] = 1;
+            }
+        }
+    }
+
     return noise;
 }
 
