@@ -1001,11 +1001,15 @@ seed_input.addEventListener('input', () => {
 let grid = [];
 
 function generateGrid() {
-    grid = generateWanderingDrunkardNoise(seed, 10);
+    grid = new Array(cols).fill().map(() => new Array(rows));
+
+    grid = generateWanderingDrunkardNoise(seed, 1);
 
     for (let z = 1; z < 6; z++) {
         grid = generateCellularAutomata(grid);
     }
+
+    grid = generateWanderingDrunkardNoise(seed, 10);
 
     drawGrid();
 }
@@ -1062,7 +1066,6 @@ function generateNoise(seed) {
 }
 
 function generateWanderingDrunkardNoise(seed, numOfDrunkards) {
-    console.log("asdf");
     let rng = new seedrandom(seed);
 
     let noise = [];
@@ -1070,22 +1073,22 @@ function generateWanderingDrunkardNoise(seed, numOfDrunkards) {
     for (let y = 0; y < rows; y++) {
         noise[y] = [];
         for (let x = 0; x < cols; x++) {
-            noise[y][x] = 0;
+            noise[y][x] = grid[y][x];
         }
     }
 
     // console.log(`Coord: ${xCoord}, ${yCoord}`)
+    let xCoord = Math.round(rng() * cols) % cols;
+    let yCoord = Math.round(rng() * rows) % rows;
 
     for (let i = 0; i < numOfDrunkards; i++) {
-        let xCoord = Math.round(rng() * cols) % cols;
-        let yCoord = Math.round(rng() * rows) % rows;
-        let steps = 1024;
+        let steps = 1024 * 4;
         noise[yCoord][xCoord] = 1;
 
         for (let j = 0; j < steps; j++) {
             let dir = Math.round(rng() * 4) % 4;
 
-            for (let z = 0; z < 2; z++) {
+            for (let z = 0; z < 1; z++) {
                 if(dir == 0)
                     noise[yCoord > rows - 2 ? yCoord : ++yCoord][xCoord] = 1;
                 else if(dir == 1)
