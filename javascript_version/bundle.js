@@ -1,4 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+
+},{}],2:[function(require,module,exports){
 // A library of seedable RNGs implemented in Javascript.
 //
 // Usage:
@@ -60,7 +62,7 @@ sr.tychei = tychei;
 
 module.exports = sr;
 
-},{"./lib/alea":2,"./lib/tychei":3,"./lib/xor128":4,"./lib/xor4096":5,"./lib/xorshift7":6,"./lib/xorwow":7,"./seedrandom":8}],2:[function(require,module,exports){
+},{"./lib/alea":3,"./lib/tychei":4,"./lib/xor128":5,"./lib/xor4096":6,"./lib/xorshift7":7,"./lib/xorwow":8,"./seedrandom":9}],3:[function(require,module,exports){
 // A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
 // http://baagoe.com/en/RandomMusings/javascript/
 // https://github.com/nquinlan/better-random-numbers-for-javascript-mirror
@@ -176,7 +178,7 @@ if (module && module.exports) {
 
 
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 // A Javascript implementaion of the "Tyche-i" prng algorithm by
 // Samuel Neves and Filipe Araujo.
 // See https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
@@ -281,7 +283,7 @@ if (module && module.exports) {
 
 
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 // A Javascript implementaion of the "xor128" prng algorithm by
 // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
 
@@ -364,7 +366,7 @@ if (module && module.exports) {
 
 
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 // A Javascript implementaion of Richard Brent's Xorgens xor4096 algorithm.
 //
 // This fast non-cryptographic random number generator is designed for
@@ -512,7 +514,7 @@ if (module && module.exports) {
   (typeof define) == 'function' && define   // present with an AMD loader
 );
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 // A Javascript implementaion of the "xorshift7" algorithm by
 // François Panneton and Pierre L'ecuyer:
 // "On the Xorgshift Random Number Generators"
@@ -611,7 +613,7 @@ if (module && module.exports) {
 );
 
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 // A Javascript implementaion of the "xorwow" prng algorithm by
 // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
 
@@ -699,7 +701,7 @@ if (module && module.exports) {
 
 
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /*
 Copyright 2019 David Bau.
 
@@ -954,7 +956,7 @@ if ((typeof module) == 'object' && module.exports) {
   Math    // math: package containing random, pow, and seedrandom
 );
 
-},{"crypto":10}],9:[function(require,module,exports){
+},{"crypto":1}],10:[function(require,module,exports){
 /*
     remove small bits
     wandering drunkard option
@@ -976,22 +978,22 @@ const cellSize = 4;
 const cols = Math.floor(width / cellSize);
 const rows = Math.floor(height / cellSize);
 
-let density = 0.6;
-const density_input = document.querySelector('#density input');
-const density_label = document.querySelector('#density span');
+// let density = 0.6;
+// const density_input = document.querySelector('#density input');
+// const density_label = document.querySelector('#density span');
 
 const seed_input = document.querySelector('#seed input');
 
-density_input.value = density;
-let decimalToPercent = (decimal) =>
-    Math.floor(decimal * 100) + "%";
-density_label.innerText = decimalToPercent(density);
+// density_input.value = density;
+// let decimalToPercent = (decimal) =>
+//     Math.floor(decimal * 100) + "%";
+// density_label.innerText = decimalToPercent(density);
 
-density_input.addEventListener('input', () => {
-    density = density_input.value;
-    density_label.innerText = decimalToPercent(density);
-    generateGrid();
-});
+// density_input.addEventListener('input', () => {
+//     density = density_input.value;
+//     density_label.innerText = decimalToPercent(density);
+//     generateGrid();
+// });
 
 seed_input.addEventListener('input', () => {
     seed = seed_input.value;
@@ -1047,24 +1049,24 @@ function generateCellularAutomata(noise) {
     return ca;
 }
 
-function generateNoise(seed) {
-    let rng = new seedrandom(seed);
+// function generateNoise(seed) {
+//     let rng = new seedrandom(seed);
 
-    let noise = [];
+//     let noise = [];
 
-    for (let y = 0; y < rows; y++) {
-        noise[y] = [];
-        for (let x = 0; x < cols; x++) {
-            if (y == 0 || x == 0 || y == (rows - 1) || x == (cols - 1)) {
-                noise[y][x] = 1;
-            }
-            else {
-                noise[y][x] = rng() < density ? 1 : 0;
-            }
-        }
-    }
-    return noise;
-}
+//     for (let y = 0; y < rows; y++) {
+//         noise[y] = [];
+//         for (let x = 0; x < cols; x++) {
+//             if (y == 0 || x == 0 || y == (rows - 1) || x == (cols - 1)) {
+//                 noise[y][x] = 1;
+//             }
+//             else {
+//                 noise[y][x] = rng() < density ? 1 : 0;
+//             }
+//         }
+//     }
+//     return noise;
+// }
 
 function generateWanderingDrunkardNoise(seed, numOfDrunkards) {
     let rng = new seedrandom(seed);
@@ -1160,6 +1162,4 @@ download_button.addEventListener('click', (e) => {
     link.click();
     link.delete;
 });
-},{"seedrandom":1}],10:[function(require,module,exports){
-
-},{}]},{},[9]);
+},{"seedrandom":2}]},{},[10]);

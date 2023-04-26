@@ -7,24 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cellular Automata</title>
     <link rel="stylesheet" href="main.css" />
+    <script defer src="bundle.js"></script>
 </head>
 
 <body>
-    <main>
-        <canvas></canvas>
-        <div class="controls">
-            <label id="seed">
-                <span>Seed</span>
-                <input type="text" name="seed" value="asdf">
-            </label>
-            <label id="density">
-                <input type="range" min="0" max="1" step="0.01" value="0.1" />
-                <span><!-- percentage goes here --></span>
-            </label>
-            <button id="download">Download</button>
+    <div id="settings">
+        <div class="setting-item" id="seed">
+            <span>Seed</span>
+            <input type="text" name="seed" value="asdf">
         </div>
-    </main>
-    <script src="bundle.js"></script>
+    </div>
+    <div id="map">
+        <canvas></canvas>
+        <button id="download">Download</button>
+    </div>
 </body>
 
 </html>

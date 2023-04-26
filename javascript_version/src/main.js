@@ -19,22 +19,22 @@ const cellSize = 4;
 const cols = Math.floor(width / cellSize);
 const rows = Math.floor(height / cellSize);
 
-let density = 0.6;
-const density_input = document.querySelector('#density input');
-const density_label = document.querySelector('#density span');
+// let density = 0.6;
+// const density_input = document.querySelector('#density input');
+// const density_label = document.querySelector('#density span');
 
 const seed_input = document.querySelector('#seed input');
 
-density_input.value = density;
-let decimalToPercent = (decimal) =>
-    Math.floor(decimal * 100) + "%";
-density_label.innerText = decimalToPercent(density);
+// density_input.value = density;
+// let decimalToPercent = (decimal) =>
+//     Math.floor(decimal * 100) + "%";
+// density_label.innerText = decimalToPercent(density);
 
-density_input.addEventListener('input', () => {
-    density = density_input.value;
-    density_label.innerText = decimalToPercent(density);
-    generateGrid();
-});
+// density_input.addEventListener('input', () => {
+//     density = density_input.value;
+//     density_label.innerText = decimalToPercent(density);
+//     generateGrid();
+// });
 
 seed_input.addEventListener('input', () => {
     seed = seed_input.value;
@@ -90,24 +90,24 @@ function generateCellularAutomata(noise) {
     return ca;
 }
 
-function generateNoise(seed) {
-    let rng = new seedrandom(seed);
+// function generateNoise(seed) {
+//     let rng = new seedrandom(seed);
 
-    let noise = [];
+//     let noise = [];
 
-    for (let y = 0; y < rows; y++) {
-        noise[y] = [];
-        for (let x = 0; x < cols; x++) {
-            if (y == 0 || x == 0 || y == (rows - 1) || x == (cols - 1)) {
-                noise[y][x] = 1;
-            }
-            else {
-                noise[y][x] = rng() < density ? 1 : 0;
-            }
-        }
-    }
-    return noise;
-}
+//     for (let y = 0; y < rows; y++) {
+//         noise[y] = [];
+//         for (let x = 0; x < cols; x++) {
+//             if (y == 0 || x == 0 || y == (rows - 1) || x == (cols - 1)) {
+//                 noise[y][x] = 1;
+//             }
+//             else {
+//                 noise[y][x] = rng() < density ? 1 : 0;
+//             }
+//         }
+//     }
+//     return noise;
+// }
 
 function generateWanderingDrunkardNoise(seed, numOfDrunkards) {
     let rng = new seedrandom(seed);
