@@ -972,9 +972,9 @@ let seed = "asdf";
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
-const width = canvas.width = 512;
-const height = canvas.height = 512;
-const cellSize = 4;
+const width = canvas.width = 128;
+const height = canvas.height = 128;
+const cellSize = 1;
 const cols = Math.floor(width / cellSize);
 const rows = Math.floor(height / cellSize);
 
