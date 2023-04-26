@@ -1,6 +1,4 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-
-},{}],2:[function(require,module,exports){
 // A library of seedable RNGs implemented in Javascript.
 //
 // Usage:
@@ -62,7 +60,7 @@ sr.tychei = tychei;
 
 module.exports = sr;
 
-},{"./lib/alea":3,"./lib/tychei":4,"./lib/xor128":5,"./lib/xor4096":6,"./lib/xorshift7":7,"./lib/xorwow":8,"./seedrandom":9}],3:[function(require,module,exports){
+},{"./lib/alea":2,"./lib/tychei":3,"./lib/xor128":4,"./lib/xor4096":5,"./lib/xorshift7":6,"./lib/xorwow":7,"./seedrandom":8}],2:[function(require,module,exports){
 // A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
 // http://baagoe.com/en/RandomMusings/javascript/
 // https://github.com/nquinlan/better-random-numbers-for-javascript-mirror
@@ -178,7 +176,7 @@ if (module && module.exports) {
 
 
 
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 // A Javascript implementaion of the "Tyche-i" prng algorithm by
 // Samuel Neves and Filipe Araujo.
 // See https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
@@ -283,7 +281,7 @@ if (module && module.exports) {
 
 
 
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 // A Javascript implementaion of the "xor128" prng algorithm by
 // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
 
@@ -366,7 +364,7 @@ if (module && module.exports) {
 
 
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 // A Javascript implementaion of Richard Brent's Xorgens xor4096 algorithm.
 //
 // This fast non-cryptographic random number generator is designed for
@@ -514,7 +512,7 @@ if (module && module.exports) {
   (typeof define) == 'function' && define   // present with an AMD loader
 );
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 // A Javascript implementaion of the "xorshift7" algorithm by
 // François Panneton and Pierre L'ecuyer:
 // "On the Xorgshift Random Number Generators"
@@ -613,7 +611,7 @@ if (module && module.exports) {
 );
 
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 // A Javascript implementaion of the "xorwow" prng algorithm by
 // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
 
@@ -701,7 +699,7 @@ if (module && module.exports) {
 
 
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /*
 Copyright 2019 David Bau.
 
@@ -956,7 +954,7 @@ if ((typeof module) == 'object' && module.exports) {
   Math    // math: package containing random, pow, and seedrandom
 );
 
-},{"crypto":1}],10:[function(require,module,exports){
+},{"crypto":10}],9:[function(require,module,exports){
 /*
     remove small bits
     wandering drunkard option
@@ -1041,7 +1039,7 @@ function generateCellularAutomata(noise) {
                     ca[y][x] = 0;
             }
             else {
-                ca[y][x] = 1;
+                ca[y][x] = 0;
             }
         }
     }
@@ -1147,13 +1145,15 @@ generateGrid();
 function drawGrid() {
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-            context.fillStyle = grid[y][x] ? "#222E44" : "#3497A1";
+            // context.fillStyle = grid[y][x] ? "#222E44" : "#3497A1";
+            // context.fillStyle = grid[y][x] ? "#5B76B9" : "#63C7DD" ;
+            context.fillStyle = grid[y][x] ? "#3A2B2A" : "#F5F6F7" ;
             context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
     }
 }
 
-const download_button = document.querySelector('#download');
+const download_button = document.querySelector('#download-button');
 
 download_button.addEventListener('click', (e) => {
     const link = document.createElement('a');
@@ -1162,4 +1162,6 @@ download_button.addEventListener('click', (e) => {
     link.click();
     link.delete;
 });
-},{"seedrandom":2}]},{},[10]);
+},{"seedrandom":1}],10:[function(require,module,exports){
+
+},{}]},{},[9]);

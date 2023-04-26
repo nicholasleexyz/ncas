@@ -82,7 +82,7 @@ function generateCellularAutomata(noise) {
                     ca[y][x] = 0;
             }
             else {
-                ca[y][x] = 1;
+                ca[y][x] = 0;
             }
         }
     }
@@ -188,13 +188,15 @@ generateGrid();
 function drawGrid() {
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-            context.fillStyle = grid[y][x] ? "#222E44" : "#3497A1";
+            // context.fillStyle = grid[y][x] ? "#222E44" : "#3497A1";
+            // context.fillStyle = grid[y][x] ? "#5B76B9" : "#63C7DD" ;
+            context.fillStyle = grid[y][x] ? "#3A2B2A" : "#F5F6F7" ;
             context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
     }
 }
 
-const download_button = document.querySelector('#download');
+const download_button = document.querySelector('#download-button');
 
 download_button.addEventListener('click', (e) => {
     const link = document.createElement('a');
