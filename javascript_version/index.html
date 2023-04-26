@@ -12,16 +12,23 @@
 
 <body>
     <div id="content">
-        <div id="settings">
-            <div class="setting-item" id="seed">
-                <span>SEED</span>
-                <input type="text" name="seed" value="asdf">
+        <div id="settings-map-container">
+            <div id="settings">
+                <div class="setting-item" id="seed">
+                    <span>SEED</span>
+                    <input type="text" name="seed" value="asdf">
+                </div>
+                <div class="setting-item" id="resolution">
+                    <span>SIZE</span>
+                    <input type="radio" name="SIZE" value="small">
+                </div>
+                <div id="download-button-container">
+                    <button id="download-button">Download</button>
+                </div>
             </div>
-        </div>
-        <div id="map">
-            <canvas></canvas>
-            <div id="download-button-container">
-                <button id="download-button">Download</button>
+            <div id="break"></div>
+            <div id="map">
+                <canvas></canvas>
             </div>
         </div>
     </div>

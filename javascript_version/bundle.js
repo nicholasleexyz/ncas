@@ -1147,7 +1147,8 @@ function drawGrid() {
         for (let x = 0; x < cols; x++) {
             // context.fillStyle = grid[y][x] ? "#222E44" : "#3497A1";
             // context.fillStyle = grid[y][x] ? "#5B76B9" : "#63C7DD" ;
-            context.fillStyle = grid[y][x] ? "#3A2B2A" : "#F5F6F7" ;
+            // context.fillStyle = grid[y][x] ? "#3A2B2A" : "#F5F6F7" ;
+            context.fillStyle = grid[y][x] ? "#000" : "#FFF" ;
             context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
     }
