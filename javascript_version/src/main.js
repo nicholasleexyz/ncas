@@ -44,10 +44,12 @@ for (let i = 0; i < ele.length; i++) {
         width = canvas.width = s;
         height = canvas.height = s;
 
+        // console.log("asdf");
+
         generateGrid();
     };
 
-    element.onclick = change();
+    element.onclick = change;
 }
 
 // density_input.value = density;
@@ -149,7 +151,7 @@ function generateWanderingDrunkardNoise(seed, numOfDrunkards) {
     let yCoord = Math.round(rng() * height) % height;
 
     for (let i = 0; i < numOfDrunkards; i++) {
-        let steps = 1024 * 4;
+        let steps = canvas.width * canvas.height / 4;
         noise[yCoord][xCoord] = 1;
 
         for (let j = 0; j < steps; j++) {
