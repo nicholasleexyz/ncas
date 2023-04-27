@@ -972,8 +972,8 @@ let seed = "asdf";
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
-var width = canvas.width = 128;
-var height = canvas.height = 128;
+var width = canvas.width = 512;
+var height = canvas.height = 512;
 const cellSize = 1;
 var grid = [];
 
@@ -993,17 +993,15 @@ for (let i = 0; i < ele.length; i++) {
     let change = () => {
         let s = 0;
 
-        if(element.id === "small")
-            s= 128;
-        else if(element.id === "medium")
-            s= 256;
-        else if(element.id === "large")
-            s= 512;
+        if (element.id === "small")
+            s = 128;
+        else if (element.id === "medium")
+            s = 256;
+        else if (element.id === "large")
+            s = 512;
 
         width = canvas.width = s;
         height = canvas.height = s;
-
-        // console.log("asdf");
 
         generateGrid();
     };
@@ -1176,7 +1174,7 @@ function drawGrid() {
             // context.fillStyle = grid[y][x] ? "#222E44" : "#3497A1";
             // context.fillStyle = grid[y][x] ? "#5B76B9" : "#63C7DD" ;
             // context.fillStyle = grid[y][x] ? "#3A2B2A" : "#F5F6F7" ;
-            context.fillStyle = grid[y][x] ? "#000" : "#FFF" ;
+            context.fillStyle = grid[y][x] ? "#000" : "#FFF";
             context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
     }

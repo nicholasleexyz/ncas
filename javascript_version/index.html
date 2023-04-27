@@ -13,28 +13,28 @@
 <body>
     <div id="content">
         <div id="settings-map-container">
-            <div id="settings">
-                <div class="setting-item" id="seed">
-                    <span>SEED</span>
-                    <input type="text" name="seed" value="asdf">
-                </div>
-                <div class="setting-item" id="resolution">
-                    <span>SIZE</span>
-                    <input type="radio" name="size" id="small" />
-                    <label for="small">Small</label>
-                    <input type="radio" name="size" id="medium" />
-                    <label for="medium">Medium</label>
-                    <input type="radio" name="size" id="large" />
-                    <label for="large">Large</label>
-                </div>
-                <div id="download-button-container">
-                    <button id="download-button">Download</button>
-                </div>
-            </div>
-            <div id="break"></div>
             <div id="map">
                 <canvas></canvas>
             </div>
+            <div id="download-button-container">
+                <div id="settings">
+                    <div class="setting-item" id="seed">
+                        <span>SEED</span>
+                        <input type="text" name="seed" value="asdf">
+                    </div>
+                    <div class="setting-item" id="resolution">
+                        <span>SIZE</span>
+                        <input type="radio" name="size" id="small" />
+                        <label for="small">Small</label>
+                        <input type="radio" name="size" id="medium" />
+                        <label for="medium">Medium</label>
+                        <input type="radio" name="size" id="large" />
+                        <label for="large">Large</label>
+                    </div>
+                </div>
+                <button id="download-button">Download</button>
+            </div>
+            <!-- <div id="break"></div> -->
         </div>
     </div>
 </body>
