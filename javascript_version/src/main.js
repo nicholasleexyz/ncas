@@ -224,9 +224,25 @@ function drawGrid() {
 const download_button = document.querySelector('#download-button');
 
 download_button.addEventListener('click', (e) => {
-    const link = document.createElement('a');
-    link.download = `${seed_input.value}.png`;
-    link.href = canvas.toDataURL();
+    const link = document.createElement("a");
+    let flattened = [].concat(...grid);
+    let total = [];
+    for (let i = 0; i < flattened.length; i++) {
+        let val = flattened[i];
+        total.push(val);
+        if((i + 1) % width == 0)
+            total.push("\n");
+    }
+
+    let file = new Blob(total, {type: 'text/plaintext'});
+    link.href = URL.createObjectURL(file);
+    link.download = "asdf.txt"
     link.click();
-    link.delete;
+    URL.revokeObjectURL(link.href);
+
+    // const link = document.createElement('a');
+    // link.download = `${seed_input.value}.png`;
+    // link.href = canvas.toDataURL();
+    // link.click();
+    // link.delete;
 });
